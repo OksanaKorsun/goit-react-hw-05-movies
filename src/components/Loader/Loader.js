@@ -3,10 +3,10 @@ import { FormatedLoader } from './Loader.styled';
 export const Loader = () => (
   <FormatedLoader>
     <ThreeDots
-      height="150"
-      width="150"
+      height="140"
+      width="140"
       radius="9"
-      color="#3f51b5"
+      color="#F81530 "
       ariaLabel="three-dots-loading"
       wrapperStyle={{}}
       wrapperClassName=""
