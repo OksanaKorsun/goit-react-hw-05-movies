@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { fetchTrendingMovies } from 'services/api';
 import { Loader } from 'components/Loader/Loader';
-import { Link } from 'react-router-dom';
+import { LinkStyled, List } from './Home.styled';
 export default function Home() {
   const [error, setError] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
@@ -23,18 +23,26 @@ export default function Home() {
     getTrendingFilms();
   }, []);
   return (
-    <main>
+    <>
       <h2>Trending today</h2>
       {isLoading && <Loader />}
       {error && <p>{error}</p>}
-      <div>
-        {movies.map(({ original_title, id, poster_path }) => (<div key={id}>
-          <Link to={`/movie/${id}`}>
-            <img src={poster_path} alt={original_title}/>
-            <h3>{original_title}</h3>
-          </Link>
-        </div>))}
-      </div>
-    </main>
+      <List>
+        {movies.map(({ original_title, id}) => {
+          // const BASE_URL = 'https://image.tmdb.org/t/p/w200';
+          // const photo = poster_path ? BASE_URL + poster_path : null;
+          return (
+            
+              <li key={id}>
+                <LinkStyled  to={`/movie/${id}`}>
+                {/* <img src={photo} alt={original_title} /> */}
+                <h3>{original_title}</h3>
+              </LinkStyled>
+              </li>
+           
+          );
+        })}
+      </List>
+    </>
   );
 }

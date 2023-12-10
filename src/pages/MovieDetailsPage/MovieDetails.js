@@ -1,7 +1,8 @@
 import { useEffect, useState } from 'react';
-import { Link, Outlet, useParams } from 'react-router-dom';
+import { Outlet, useParams } from 'react-router-dom';
 import { fetchMoviesDetails } from 'services/api';
 import { Loader } from 'components/Loader/Loader';
+import { Link } from './MovieDetails.styled';
 export default function MovieDetails() {
   const params = useParams();
   const [movie, setMovie] = useState(null);
@@ -24,6 +25,11 @@ export default function MovieDetails() {
     }
     getMovieDetails();
   }, [params.movieId]);
+  const BASE_URL = 'https://image.tmdb.org/t/p/w200';
+  const getVoteAverage = () => {
+    return Math.ceil(movie.vote_average * 10)
+  }
+
   return (
     <div>
       {isLoading && <Loader />}
@@ -31,14 +37,16 @@ export default function MovieDetails() {
       {movie && (
         <div>
           <div>
-            <img src={movie.poster_path} alt={movie.original_title}></img>
+            <img
+              src={BASE_URL + movie.poster_path}
+              alt={movie.original_title}
+            ></img>
             <div>
               <h2>{movie.original_title}</h2>
-              <p>User score</p>
-              <p>
-                Overview <span>{movie.overview}</span>
-              </p>
-              <p>Genres</p>
+              <p>User Score: {getVoteAverage()}%</p>
+              <h3>Overview</h3>
+              <p>{movie.overview}</p>
+              <h4>Genres</h4>
               {movie.genres.map(({ name, id }) => (
                 <ul>
                   <li key={id}>{name}</li>
