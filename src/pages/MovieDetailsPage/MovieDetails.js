@@ -1,21 +1,62 @@
-import { Link, Outlet } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import { Link, Outlet, useParams } from 'react-router-dom';
+import { fetchMoviesDetails } from 'services/api';
+import { Loader } from 'components/Loader/Loader';
 export default function MovieDetails() {
-//   const { movieId } = useParams();
-   return (
+  const params = useParams();
+  const [movie, setMovie] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState(false);
+
+  useEffect(() => {
+    async function getMovieDetails() {
+      try {
+        setIsLoading(true);
+        setError(false);
+
+        const details = await fetchMoviesDetails(params.movieId);
+        setMovie(details);
+      } catch (error) {
+        setError(true);
+      } finally {
+        setIsLoading(false);
+      }
+    }
+    getMovieDetails();
+  }, [params.movieId]);
+  return (
     <div>
-      <h1>About page</h1>
-      <ul>
-        <li>
-          <Link to="mission">Read about our mission</Link>
-        </li>
-        <li>
-          <Link to="team">Get to know the team</Link>
-        </li>
-        <li>
-          <Link to="reviews">Go through the reviews</Link>
-        </li>
-      </ul>
-      <Outlet />
+      {isLoading && <Loader />}
+      {error && <p>{error}</p>}
+      {movie && (
+        <div>
+          <div>
+            <img src={movie.poster_path} alt={movie.original_title}></img>
+            <div>
+              <h2>{movie.original_title}</h2>
+              <p>User score</p>
+              <p>
+                Overview <span>{movie.overview}</span>
+              </p>
+              <p>Genres</p>
+              {movie.genres.map(({ name, id }) => (
+                <ul>
+                  <li key={id}>{name}</li>
+                </ul>
+              ))}
+            </div>
+          </div>
+          <ul>
+            <li>
+              <Link to="credits">Cast</Link>
+            </li>
+            <li>
+              <Link to="reviews">Reviews</Link>
+            </li>
+          </ul>
+          <Outlet />
+        </div>
+      )}
     </div>
-  );;
-};
+  );
+}

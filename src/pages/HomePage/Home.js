@@ -13,8 +13,6 @@ export default function Home() {
         setIsLoading(true);
         setError(false);
         const trengingFilms = await fetchTrendingMovies();
-        console.log(trengingFilms.results);
-
         setMovies(prevMovies => [...prevMovies, ...trengingFilms.results]);
       } catch (error) {
         setError(true);
@@ -30,10 +28,10 @@ export default function Home() {
       {isLoading && <Loader />}
       {error && <p>{error}</p>}
       <div>
-        {movies.map(({ title, id, poster_path }) => (<div key={id}>
-          <Link to={`${id}`}>
-            <img src={poster_path} alt={title}/>
-            <h3>{title}</h3>
+        {movies.map(({ original_title, id, poster_path }) => (<div key={id}>
+          <Link to={`/movie/${id}`}>
+            <img src={poster_path} alt={original_title}/>
+            <h3>{original_title}</h3>
           </Link>
         </div>))}
       </div>
