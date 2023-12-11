@@ -1,9 +1,10 @@
 import { useEffect, useState } from 'react';
-import { Outlet, useParams } from 'react-router-dom';
+import { Outlet, useLocation, useParams } from 'react-router-dom';
 import { fetchMoviesDetails } from 'services/api';
 import { Loader } from 'components/Loader/Loader';
-import { Link } from './MovieDetails.styled';
+import { Link, List } from './MovieDetails.styled';
 export default function MovieDetails() {
+  const location = useLocation();
   const params = useParams();
   const [movie, setMovie] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
@@ -27,13 +28,14 @@ export default function MovieDetails() {
   }, [params.movieId]);
   const BASE_URL = 'https://image.tmdb.org/t/p/w200';
   const getVoteAverage = () => {
-    return Math.ceil(movie.vote_average * 10)
-  }
+    return Math.ceil(movie.vote_average * 10);
+  };
 
   return (
     <div>
       {isLoading && <Loader />}
       {error && <p>{error}</p>}
+      <Link to={location.state.from}>Go back</Link>
       {movie && (
         <div>
           <div>
@@ -54,14 +56,14 @@ export default function MovieDetails() {
               ))}
             </div>
           </div>
-          <ul>
+          <List>
             <li>
               <Link to="credits">Cast</Link>
             </li>
             <li>
               <Link to="reviews">Reviews</Link>
             </li>
-          </ul>
+          </List>
           <Outlet />
         </div>
       )}

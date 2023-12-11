@@ -1,48 +1,61 @@
-import { useState } from 'react';
-import toast from 'react-hot-toast';
-// import { fetchMovies } from 'services/api';
+import { useState, useEffect } from 'react';
+import { useSearchParams } from 'react-router-dom';
+// import toast from 'react-hot-toast';
+import { Loader } from 'components/Loader/Loader';
+import { fetchMovies } from 'services/api';
 export default function Movie() {
-  const [searchMovie, setSearchMovie] = useState('');
-  //   const [error, setError] = useState(false);
-  //   const [isLoading, setIsLoading] = useState(false);
-  const searchChange = e => setSearchMovie(e.target.value.toLowerCase());
+  const [searchParams, setSearchParams] = useSearchParams();
+  const query = searchParams.get('query') ?? '';
+  const [movie, setMovie] = useState([]);
+  const [error, setError] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const searchChange = (evt) => setSearchParams({query: evt.target.value})
+
   const handleSubmit = e => {
     e.preventDefalt();
-    if (searchMovie.trim() === '') {
-      toast.error('Please enter a query in the search field.');
+    // if (searchMovie.trim() === '') {
+    //   toast.error('Please enter a query in the search field.');
+    //   return;
+    // }
+    const form = e.currentTarget;
+    setSearchParams({ query: form.elements.name.value });
+    form.reset();
+
+  };
+  useEffect(() => {
+    if (query.trim() === '') {
       return;
     }
-    setSearchMovie('');
-  };
-  // useEffect(() => {
-  //     async function getMovie() {
-  //         try {
-  //             setError(false);
-  //             setIsLoading(true);
-  //             const movie = await fetchMovies(searchMovie);
-  //         }
-  //         catch (error) {
-  //             setError(true);
-  //         }
-  //         finally {
-  //             setIsLoading(false);
-  //         }
-  //     }
-  //     getMovie();
-  // }, [searchMovie])
+    async function getMovie() {
+      try {
+        setError(false);
+        setIsLoading(true);
+        const findedMovie = await fetchMovies(query);
+        setMovie(findedMovie);
+      } catch (error) {
+        setError(true);
+      } finally {
+        setIsLoading(false);
+      }
+    }
+    getMovie();
+  }, [query]);
   return (
     <>
       <form onSubmit={handleSubmit}>
         <input
           type="text"
-          autoComplete="off"
+          // autoComplete="off"
           autoFocus
           onChange={searchChange}
-          name="searchImage"
-          value={searchMovie}
+          name="name"
+          value={query}
         />
         <button type="submit">Search</button>
       </form>
+      {isLoading && <Loader />}
+      {error && <p>{error}</p>}
+      {movie.length > 0 && (<div></div>)}
     </>
   );
 }

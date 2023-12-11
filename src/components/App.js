@@ -10,6 +10,13 @@ import Movie from 'pages/MoviePage/Movie';
 import { Reviews } from './Reviews/Reviews';
 import { SharedLayout } from './SharedLayout/SharedLayout';
 import { Cast } from './Cast/Cast';
+// const NotFound  = lazy(() => import("pages/NotFoundPage/NotFound"));
+// const Home = lazy(() => import("pages/HomePage/Home"));
+// const MovieDetails = lazy(() => import("pages/MovieDetailsPage/MovieDetails"));
+// const Movie = lazy(() => import("pages/MoviePage/Movie"));
+// const Mission = lazy(() => import("./Mission"));
+// const Team = lazy(() => import("./Team"));
+// const Reviews = lazy(() => import("./Reviews"));
 
 export const App = () => {
   return (
