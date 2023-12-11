@@ -6,24 +6,23 @@ import { fetchMovies } from 'services/api';
 export default function Movie() {
   const [searchParams, setSearchParams] = useSearchParams();
   const query = searchParams.get('query') ?? '';
-  const [movie, setMovie] = useState([]);
+  const [movies, setMovies] = useState([]);
   const [error, setError] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-  const searchChange = (evt) => setSearchParams({query: evt.target.value})
+  // const searchChange = (evt) => setSearchParams({ query: evt.target.value });
 
   const handleSubmit = e => {
     e.preventDefalt();
-    // if (searchMovie.trim() === '') {
-    //   toast.error('Please enter a query in the search field.');
-    //   return;
-    // }
-    const form = e.currentTarget;
-    setSearchParams({ query: form.elements.name.value });
-    form.reset();
-
+    // const form = e.currentTarget;
+    // setSearchParams({ query: e.target.value });
+    // form.reset();
+    const { value } = e.target.elements.query;
+    if (value) {
+      setSearchParams({ query: value });
+    }
   };
   useEffect(() => {
-    if (query.trim() === '') {
+    if (query === '') {
       return;
     }
     async function getMovie() {
@@ -31,7 +30,7 @@ export default function Movie() {
         setError(false);
         setIsLoading(true);
         const findedMovie = await fetchMovies(query);
-        setMovie(findedMovie);
+        setMovies(findedMovie.results);
       } catch (error) {
         setError(true);
       } finally {
@@ -43,19 +42,12 @@ export default function Movie() {
   return (
     <>
       <form onSubmit={handleSubmit}>
-        <input
-          type="text"
-          // autoComplete="off"
-          autoFocus
-          onChange={searchChange}
-          name="name"
-          value={query}
-        />
+        <input type="text" autoComplete="off" autoFocus name="name" />
         <button type="submit">Search</button>
       </form>
       {isLoading && <Loader />}
       {error && <p>{error}</p>}
-      {movie.length > 0 && (<div></div>)}
+      {movies.length > 0 && <div>Movies</div>}
     </>
   );
 }

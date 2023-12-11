@@ -1,5 +1,7 @@
 import { Outlet } from 'react-router-dom';
 import { Link, Header, NavList, Container } from './SharedLayout.styled';
+import { GlobalStyle } from 'components/GlobalStyle';
+import { Toaster } from 'react-hot-toast';
 export const SharedLayout = () => {
   return (
     <div>
@@ -18,6 +20,8 @@ export const SharedLayout = () => {
       <Container>
         <Outlet />
       </Container>
+      <GlobalStyle />
+      <Toaster />
     </div>
   );
 };
