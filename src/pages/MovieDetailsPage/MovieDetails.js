@@ -1,10 +1,9 @@
 import { useEffect, useRef, useState } from 'react';
 import { Outlet, useLocation, useParams } from 'react-router-dom';
-// import { RiArrowLeftDoubleFill } from "react-icons/ri";
 import { LiaLongArrowAltLeftSolid } from "react-icons/lia"
 import { fetchMoviesDetails } from 'services/api';
 import { Loader } from 'components/Loader/Loader';
-import { Link, List } from './MovieDetails.styled';
+import { LinkStyled, List } from './MovieDetails.styled';
 export default function MovieDetails() {
   const location = useLocation();
   const backLinkRef = useRef(location);
@@ -38,7 +37,7 @@ export default function MovieDetails() {
     <div>
       {isLoading && <Loader />}
       {error && <p>{error}</p>}
-      <Link to={backLinkRef.current.state?.from ?? "/"}><LiaLongArrowAltLeftSolid />Go back</Link>
+      <LinkStyled to={backLinkRef.current.state?.from ?? "/"}><LiaLongArrowAltLeftSolid />Go back</LinkStyled>
       {movie && (
         <div>
           <div>
@@ -61,10 +60,10 @@ export default function MovieDetails() {
           </div>
           <List>
             <li>
-              <Link to="credits">Cast</Link>
+              <LinkStyled to="credits">Cast</LinkStyled>
             </li>
             <li>
-              <Link to="reviews">Reviews</Link>
+              <LinkStyled to="reviews">Reviews</LinkStyled>
             </li>
           </List>
           <Outlet />

@@ -1,6 +1,6 @@
 import styled from "styled-components";
-import { NavLink } from 'react-router-dom';
-export const Link = styled(NavLink)`
+import { Link } from 'react-router-dom';
+export const LinkStyled = styled(Link)`
   color: #1E10E4 ;
   
   font-weight: 500;

@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
-import { useSearchParams } from 'react-router-dom';
-// import toast from 'react-hot-toast';
+import { useLocation, useSearchParams } from 'react-router-dom';
+import { FormStyled, InputStyled, FormButton, LinkStyled, List, Title } from './Movie.styled';
 import { Loader } from 'components/Loader/Loader';
 import { fetchMovies } from 'services/api';
 export default function Movie() {
@@ -9,7 +9,7 @@ export default function Movie() {
   const [movies, setMovies] = useState([]);
   const [error, setError] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-  // const searchChange = (evt) => setSearchParams({ query: evt.target.value });
+  const location = useLocation();
 
   const handleSubmit = e => {
     e.preventDefalt();
@@ -41,13 +41,26 @@ export default function Movie() {
   }, [query]);
   return (
     <>
-      <form onSubmit={handleSubmit}>
-        <input type="text" autoComplete="off" autoFocus name="name" />
-        <button type="submit">Search</button>
-      </form>
+      <FormStyled onSubmit={handleSubmit}>
+        <InputStyled type="text" autoComplete="off" autoFocus name="query" />
+        <FormButton type="submit">Search</FormButton>
+      </FormStyled>
       {isLoading && <Loader />}
       {error && <p>{error}</p>}
-      {movies.length > 0 && <div>Movies</div>}
+      {movies.length > 0 && (
+        <List>
+          {movies.map(({ original_title, id }) => (
+            <li key={id}>
+              <LinkStyled  to={`/movie/${id}`} state={{ from: location }}>
+                <Title>{original_title}</Title>
+              </LinkStyled>
+            </li>
+          ))}
+        </List>
+      )}
+      {movies.length === 0 && !isLoading && query && (
+        <p>Movie "{query}" not found.</p>
+      )}
     </>
   );
 }

@@ -4,7 +4,6 @@ import { fetchReviews } from 'services/api';
 import { Loader } from 'components/Loader/Loader';
 export const Reviews = () => {
   const params = useParams();
-  console.log(params);
   const [reviews, setReviews] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(false);
@@ -40,6 +39,7 @@ export const Reviews = () => {
           ))}
         </div>
       )}
+      {reviews.length === 0 && <p>We don't have any reviews for this movie.</p>}
     </div>
   );
 };
