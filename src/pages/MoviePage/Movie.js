@@ -13,9 +13,6 @@ export default function Movie() {
 
   const handleSubmit = e => {
     e.preventDefalt();
-    // const form = e.currentTarget;
-    // setSearchParams({ query: e.target.value });
-    // form.reset();
     const { value } = e.target.elements.query;
     if (value) {
       setSearchParams({ query: value });

@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { fetchReviews } from 'services/api';
 import { Loader } from 'components/Loader/Loader';
+import { Container } from './Reviews.styled';
 export const Reviews = () => {
   const params = useParams();
   const [reviews, setReviews] = useState([]);
@@ -28,7 +29,7 @@ export const Reviews = () => {
       {isLoading && <Loader />}
       {error && <p>{error}</p>}
       {reviews.length > 0 && (
-        <div>
+        <Container>
           {reviews.map(({ author, content, id }) => (
             <ul>
               <li key={id}>
@@ -37,7 +38,7 @@ export const Reviews = () => {
               </li>
             </ul>
           ))}
-        </div>
+        </Container>
       )}
       {reviews.length === 0 && <p>We don't have any reviews for this movie.</p>}
     </div>

@@ -9,7 +9,7 @@ export const Link = styled(NavLink)`
   }
 `;
 export const Container = styled.main`
-  max-width: 960px;
+  /* max-width: 1440px; */
   /* margin: 0 auto; */
   /* padding: 0 16px; */
 `;
