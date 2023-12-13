@@ -4,10 +4,10 @@ export const WraperCast = styled.div`
   margin: 18px 40px;
 `;
 export const ListCast = styled.ul`
-  display: grid;
-  max-width: calc(100vw - 48px);
-  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-  grid-gap: 16px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  list-style: none;
   margin-top: 0;
   margin-bottom: 0;
   padding: 0;
@@ -16,7 +16,9 @@ export const ListCast = styled.ul`
   margin-right: auto;
 `;
 export const ItemCast = styled.li`
-  width: 100%;
+  width: 175px;
+  border-radius: 8px;
+  overflow: hidden;
   display: flex;
   flex-direction: column;
   object-fit: cover;
@@ -28,10 +30,13 @@ export const ItemCast = styled.li`
   border-radius: 0px 0px 4px 4px;
 `;
 export const PhotoWraper = styled(MdNoPhotography)`
-  margin: 0 auto;
-  margin-bottom: 188px;
+  /* margin: 0 auto; */
+  /* margin-bottom: 188px; */
   fill: #908e8c;
 `;
 export const InfoWraper = styled.div`
   padding: 12px;
 `;
+export const StyledCharacter = styled.p`
+font-size: 12px;
+color: #727272;`

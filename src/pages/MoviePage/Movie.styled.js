@@ -12,7 +12,7 @@ export const Title = styled.h4`
   margin: 8px 0;
 `;
 export const FormStyled = styled.form`
-  margin: 30px auto;
+   margin: 30px auto;
   text-align: center;
   padding: 20px;
 `;
@@ -24,6 +24,7 @@ export const InputStyled = styled.input`
   padding: 8px;
   border-radius: 8px;
   height: 38px;
+  
 `;
 export const FormButton = styled.button`
   height: 38px;
@@ -41,4 +42,5 @@ export const FormButton = styled.button`
   &:hover {
     background-color: #1b0ece;
   }
+  
 `;

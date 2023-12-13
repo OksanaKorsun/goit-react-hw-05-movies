@@ -12,7 +12,13 @@ const Movie = lazy(() => import('pages/MoviePage/Movie'));
 
 export const App = () => {
   return (
-    <Suspense fallback={<div><Loader/></div>}>
+    <Suspense
+      fallback={
+        <div>
+          <Loader />
+        </div>
+      }
+    >
       <Routes>
         <Route path="/" element={<SharedLayout />}>
           <Route index element={<Home />} />
@@ -21,8 +27,8 @@ export const App = () => {
             <Route path="credits" element={<Cast />} />
             <Route path="reviews" element={<Reviews />} />
           </Route>
-          <Route path="*" element={<NotFound />} />
         </Route>
+        <Route path="*" element={<NotFound />} />
       </Routes>
     </Suspense>
   );

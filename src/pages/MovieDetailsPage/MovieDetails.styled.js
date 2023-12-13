@@ -22,6 +22,7 @@ align-items: center;
 `
 export const MovieWraper = styled.div`
 display: flex;
+padding-bottom: 20px;
 `
 export const MovieInfo = styled.div`
 display: flex;

@@ -8,6 +8,7 @@ import {
   ItemCast,
   PhotoWraper,
   InfoWraper,
+  StyledCharacter,
 } from './Cast.styled';
 export const Cast = () => {
   const [credits, setCredits] = useState([]);
@@ -44,14 +45,14 @@ export const Cast = () => {
                   {profile_path ? (
                     <img src={photo} alt={name}></img>
                   ) : (
-                    <PhotoWraper size="200" />
+                    <PhotoWraper size="175px"/>
                   )}
 
                   <InfoWraper>
                     <p>{name}</p>
-                    <p>
+                    <StyledCharacter>
                       Character: <span>{character}</span>
-                    </p>
+                    </StyledCharacter>
                   </InfoWraper>
                 </ItemCast>
               );

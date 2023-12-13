@@ -1,6 +1,13 @@
 import { useState, useEffect } from 'react';
 import { useLocation, useSearchParams } from 'react-router-dom';
-import { FormStyled, InputStyled, FormButton, LinkStyled, List, Title } from './Movie.styled';
+import {
+  FormStyled,
+  InputStyled,
+  FormButton,
+  LinkStyled,
+  List,
+  Title,
+} from './Movie.styled';
 import { Loader } from 'components/Loader/Loader';
 import { fetchMovies } from 'services/api';
 export default function Movie() {
@@ -39,8 +46,8 @@ export default function Movie() {
   return (
     <>
       <FormStyled onSubmit={handleSubmit}>
-        <InputStyled type="text" autoComplete="off" autoFocus name="query" />
         <FormButton type="submit">Search</FormButton>
+        <InputStyled type="text" autoComplete="off" autoFocus name="query" />
       </FormStyled>
       {isLoading && <Loader />}
       {error && <p>{error}</p>}
@@ -48,7 +55,7 @@ export default function Movie() {
         <List>
           {movies.map(({ original_title, id }) => (
             <li key={id}>
-              <LinkStyled  to={`/movie/${id}`} state={{ from: location }}>
+              <LinkStyled to={`/movie/${id}`} state={{ from: location }}>
                 <Title>{original_title}</Title>
               </LinkStyled>
             </li>
