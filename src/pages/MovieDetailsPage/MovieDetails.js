@@ -3,7 +3,8 @@ import { Outlet, useLocation, useParams } from 'react-router-dom';
 import { LiaLongArrowAltLeftSolid } from 'react-icons/lia';
 import { fetchMoviesDetails } from 'services/api';
 import { Loader } from 'components/Loader/Loader';
-import { LinkStyled, List, Wraper,  BackWraper, MovieInfo, MovieWraper, GenresList} from './MovieDetails.styled';
+import { LinkStyled, List, Wraper, BackWraper } from './MovieDetails.styled';
+import { MovieList } from 'components/MoviesList/MoviesList';
 export default function MovieDetails() {
   const location = useLocation();
   const backLinkRef = useRef(location);
@@ -28,39 +29,19 @@ export default function MovieDetails() {
     }
     getMovieDetails();
   }, [params.movieId]);
-  const BASE_URL = 'https://image.tmdb.org/t/p/w300';
-  const getVoteAverage = () => {
-    return Math.ceil(movie.vote_average * 10);
-  };
-
   return (
     <div>
       {isLoading && <Loader />}
       {error && <p>{error}</p>}
       <LinkStyled to={backLinkRef.current.state?.from ?? '/'}>
-        < BackWraper>
+        <BackWraper>
           <LiaLongArrowAltLeftSolid />
           <p>Go back</p>
-        </ BackWraper>
+        </BackWraper>
       </LinkStyled>
       {movie && (
         <div>
-          <MovieWraper>
-            <img
-              src={BASE_URL + movie.poster_path}
-              alt={movie.original_title}
-            ></img>
-            <MovieInfo>
-              <h2>{movie.original_title}</h2>
-              <p>User Score: {getVoteAverage()}%</p>
-              <h3>Overview</h3>
-              <p>{movie.overview}</p>
-              <h4>Genres</h4>
-              <GenresList>
-                {movie.genres.map(({id, name}) => <li key={id}>{ name}</li>)}
-              </GenresList>
-            </MovieInfo>
-          </MovieWraper>
+          <MovieList movie={movie} />
 
           <Wraper>
             <p>Additional information</p>

@@ -30,13 +30,12 @@ export const ItemCast = styled.li`
   border-radius: 0px 0px 4px 4px;
 `;
 export const PhotoWraper = styled(MdNoPhotography)`
-  /* margin: 0 auto; */
-  /* margin-bottom: 188px; */
   fill: #908e8c;
 `;
 export const InfoWraper = styled.div`
   padding: 12px;
 `;
 export const StyledCharacter = styled.p`
-font-size: 12px;
-color: #727272;`
+  font-size: 12px;
+  color: #727272;
+`;
