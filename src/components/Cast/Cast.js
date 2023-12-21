@@ -60,6 +60,7 @@ export const Cast = () => {
           </ListCast>
         </WraperCast>
       )}
+      {credits.length === 0 && <p>We have no information about the cast of this movie.</p>}
     </div>
   );
 };
